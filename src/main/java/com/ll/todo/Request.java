@@ -7,9 +7,7 @@ public class Request {
     private String actionCode;
     private Map<String, String> params =  new HashMap<>();
 
-    Request(){
 
-    }
 
     void ReqSplit(String command){
         String[] commandList = command.split("\\?",2);//modify?id=1
