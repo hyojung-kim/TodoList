@@ -72,7 +72,7 @@ public class TodoController {
     }
     void delete(){
         System.out.print("삭제?id= : ");
-        command = Container.getSc().nextLine();
+        command = "삭제?id=" + Container.getSc().nextLine();
         request.ReqSplit(command);
         int id = _getIntParam(request.getParam("id"));
         Todo todo = _getAclFindById(id);
