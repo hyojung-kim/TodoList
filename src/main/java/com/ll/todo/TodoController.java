@@ -22,13 +22,14 @@ public class TodoController {
             if (getInt == -1) {
                 System.out.println("숫자로 입력!");
             }
-
-
             if(request.getActionCode().equals("1")){ //할일 추가
                 write();
             }
             else if(request.getActionCode().equals("2")){ //전체 보기
                 list();
+            }
+            else if(request.getActionCode().equals("4")){ //전체 보기
+                delete();
             }
         }
 
@@ -43,8 +44,16 @@ public class TodoController {
         }catch (NumberFormatException e){
             return defaultValue; //변환 불가능
         }
-
     }
+    private Todo _getAclFindById(int id) {
+        for (Todo todo : todoList) {
+            if (todo.getId() == id) {
+                return todo;
+            }
+        }
+        return null;
+    }
+
 
     void write(){
         System.out.print("할일(추가): ");
@@ -59,6 +68,20 @@ public class TodoController {
         for (int i = todoList.size() - 1; i >= 0; i--) {
             Todo todo = todoList.get(i);
             System.out.printf("%d / %s / %s\n", todo.getId(), todo.getContent(), todo.getIsDone());
+        }
+    }
+    void delete(){
+        System.out.print("삭제?id= : ");
+        command = Container.getSc().nextLine();
+        request.ReqSplit(command);
+        int id = _getIntParam(request.getParam("id"));
+        Todo todo = _getAclFindById(id);
+        if (todo == null) {
+            System.out.printf("%d번 글이 존재하지 않습니다.\n", id);
+        }
+        else {
+            todoList.remove(todo);
+            System.out.printf("%d번 글이 삭제되었습니다.\n", id);
         }
     }
 
