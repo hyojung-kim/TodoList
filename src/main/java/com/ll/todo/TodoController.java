@@ -14,9 +14,16 @@ public class TodoController {
 
     public void run() {
         while (true) {
+            int getInt = -1;
             System.out.print("선택 > ");
             command = Container.getSc().nextLine();
             request.ReqSplit(command);
+            getInt = _getIntParam(command);
+            if (getInt == -1) {
+                System.out.println("숫자로 입력!");
+            }
+
+
             if(request.getActionCode().equals("1")){ //할일 추가
                 write();
             }
@@ -28,6 +35,17 @@ public class TodoController {
 
 
     }
+
+    private int _getIntParam(String command) {
+        int defaultValue = -1;
+        try{
+            return  Integer.parseInt(command);
+        }catch (NumberFormatException e){
+            return defaultValue; //변환 불가능
+        }
+
+    }
+
     void write(){
         System.out.print("할일(추가): ");
         command = Container.getSc().nextLine();
@@ -43,5 +61,7 @@ public class TodoController {
             System.out.printf("%d / %s / %s\n", todo.getId(), todo.getContent(), todo.getIsDone());
         }
     }
+
+
 
 }
