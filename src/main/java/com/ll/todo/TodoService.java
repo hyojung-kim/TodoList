@@ -25,4 +25,8 @@ public class TodoService {
     public Todo FindById(int id) {
         return  todoRepository.FindById(id);
     }
+
+    public void complete(Todo todo) {
+        todoRepository.complete(todo);
+    }
 }

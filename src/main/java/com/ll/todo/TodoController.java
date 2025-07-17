@@ -28,6 +28,9 @@ public class TodoController {
             else if(request.getActionCode().equals("2")){ //전체 보기
                 list();
             }
+            else if(request.getActionCode().equals("3")){ //할일 삭제
+                complete();
+            }
             else if(request.getActionCode().equals("4")){ //할일 삭제
                 delete();
             }
@@ -67,6 +70,30 @@ public class TodoController {
         }
         else {
             System.out.printf("%d번 글이 삭제되었습니다.\n", id);
+        }
+    }
+    void complete(){
+        List<Todo> todoList = todoService.findAll();
+        System.out.println("번호/할일/상태");
+        System.out.println("------------");
+        for (int i = todoList.size() - 1; i >= 0; i--) {
+            Todo todo = todoList.get(i);
+            System.out.printf("%d / %s / %s\n", todo.getId(), todo.getContent(), todo.getIsDone() ? "O":"X");
+        }
+
+        System.out.println(" ");
+        System.out.println("id&isDone= : ");
+        command = "수정?id=" + Container.getSc().nextLine();
+        request.ReqSplit(command);
+        int id = todoService.getIntParam(request.getParam("id"));
+        Todo todo = todoService.FindById(id);
+        todoService.complete(todo);
+
+        if (todo == null) {
+            System.out.printf("%d번 글이 존재하지 않습니다.\n", id);
+        }
+        else {
+            System.out.printf("%d번 글이 수정되었습니다.\n", id);
         }
     }
 

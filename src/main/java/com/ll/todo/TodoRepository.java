@@ -51,4 +51,9 @@ public class TodoRepository {
         }
         return null;
     }
+
+    public void complete(Todo todo) {
+        String sql = String.format("UPDATE todo SET isDone = 1 WHERE id = %d", todo.getId() );
+        Container.getDBConnection().update(sql);
+    }
 }
