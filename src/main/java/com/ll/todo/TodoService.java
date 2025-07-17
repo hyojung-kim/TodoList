@@ -10,4 +10,9 @@ public class TodoService {
     public static List<Todo> findAll() {
         return TodoRepository.findAll();
     }
+
+    public static void delete(Todo todo) {
+        TodoRepository.delete(todo);
+
+    }
 }

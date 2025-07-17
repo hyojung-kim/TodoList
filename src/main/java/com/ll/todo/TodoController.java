@@ -61,11 +61,12 @@ public class TodoController {
         request.ReqSplit(command);
         int id = _getIntParam(request.getParam("id"));
         Todo todo = _FindById(id);
+        TodoService.delete(todo);
+
         if (todo == null) {
             System.out.printf("%d번 글이 존재하지 않습니다.\n", id);
         }
         else {
-            //todoList.remove(todo);
             System.out.printf("%d번 글이 삭제되었습니다.\n", id);
         }
     }

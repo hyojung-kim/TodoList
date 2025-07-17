@@ -27,4 +27,9 @@ public class TodoRepository {
         return todoList;
 
     }
+
+    public static void delete(Todo todo) {
+        String sql = String.format("", todo.getId() );
+        Container.getDBConnection().delete(sql);
+    }
 }
