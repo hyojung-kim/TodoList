@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 public class TodoRepository {
-    public static int create(Todo todo) {
+    public  int create(Todo todo) {
         String sql = String.format("INSERT INTO todo (content, isDone)\n" +
                 "values('%s', %b)", todo.getContent(), todo.getIsDone());
 
@@ -16,7 +16,7 @@ public class TodoRepository {
         return id;
     }
 
-    public static List<Todo> findAll() {
+    public  List<Todo> findAll() {
         List<Todo> todoList = new ArrayList<>();
         List<Map<String, Object>> rows = Container.getDBConnection().selectRows("select * from Todo");
         for ( Map<String, Object> row : rows ) {
@@ -28,8 +28,27 @@ public class TodoRepository {
 
     }
 
-    public static void delete(Todo todo) {
-        String sql = String.format("", todo.getId() );
+    public  void delete(Todo todo) {
+        String sql = String.format("준비 중", todo.getId() );
         Container.getDBConnection().delete(sql);
+    }
+
+    public int getIntParam(String command) {
+        int defaultValue = -1;
+        try{
+            return  Integer.parseInt(command);
+        }catch (NumberFormatException e){
+            return defaultValue; //변환 불가능
+        }
+    }
+
+    public Todo FindById(int id) {
+        List<Todo> todoList = null;
+        for (Todo todo : todoList) {
+            if (todo.getId() == id) {
+                return todo;
+            }
+        }
+        return null;
     }
 }

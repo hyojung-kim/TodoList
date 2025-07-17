@@ -1,6 +1,5 @@
 package com.ll.todo;
 import com.ll.Container;
-import java.util.ArrayList;
 import java.util.List;
 
 public class TodoController {
@@ -19,7 +18,7 @@ public class TodoController {
             System.out.print("선택 > ");
             command = Container.getSc().nextLine();
             request.ReqSplit(command);
-            getInt = _getIntParam(command);//유효검사
+            getInt = todoService.getIntParam(command);//유효검사
             if (getInt == -1) {
                 System.out.println("숫자로 입력!");
             }
@@ -43,11 +42,11 @@ public class TodoController {
         command = Container.getSc().nextLine();
         Todo todo = new Todo(command);
 
-        int id = TodoService.create(todo);
+        int id = todoService.create(todo);
         System.out.printf("%d번 등록되었습니다\n",id);
     }
     void list(){
-        List<Todo> todoList = TodoService.findAll();
+        List<Todo> todoList = todoService.findAll();
         System.out.println("번호/할일/상태");
         System.out.println("------------");
         for (int i = todoList.size() - 1; i >= 0; i--) {
@@ -59,9 +58,9 @@ public class TodoController {
         System.out.print("삭제?id= : ");
         command = "삭제?id=" + Container.getSc().nextLine();
         request.ReqSplit(command);
-        int id = _getIntParam(request.getParam("id"));
-        Todo todo = _FindById(id);
-        TodoService.delete(todo);
+        int id = todoService.getIntParam(request.getParam("id"));
+        Todo todo = todoService.FindById(id);
+        todoService.delete(todo);
 
         if (todo == null) {
             System.out.printf("%d번 글이 존재하지 않습니다.\n", id);
@@ -69,24 +68,6 @@ public class TodoController {
         else {
             System.out.printf("%d번 글이 삭제되었습니다.\n", id);
         }
-    }
-
-    private int _getIntParam(String command) {
-        int defaultValue = -1;
-        try{
-            return  Integer.parseInt(command);
-        }catch (NumberFormatException e){
-            return defaultValue; //변환 불가능
-        }
-    }
-    private Todo _FindById(int id) {
-        List<Todo> todoList = null;
-        for (Todo todo : todoList) {
-            if (todo.getId() == id) {
-                return todo;
-            }
-        }
-        return null;
     }
 
 

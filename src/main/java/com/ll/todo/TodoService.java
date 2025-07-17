@@ -3,16 +3,26 @@ package com.ll.todo;
 import java.util.List;
 
 public class TodoService {
-    public static int create(Todo todo) {
-        return TodoRepository.create(todo);
+
+    TodoRepository todoRepository = new TodoRepository();
+
+    public  int create(Todo todo) {
+        return todoRepository.create(todo);
     }
 
-    public static List<Todo> findAll() {
-        return TodoRepository.findAll();
+    public  List<Todo> findAll() {
+        return todoRepository.findAll();
     }
 
-    public static void delete(Todo todo) {
-        TodoRepository.delete(todo);
+    public  void delete(Todo todo) {
+        todoRepository.delete(todo);
+    }
 
+    public int getIntParam(String command){
+        return todoRepository.getIntParam(command);
+    }
+
+    public Todo FindById(int id) {
+        return  todoRepository.FindById(id);
     }
 }
