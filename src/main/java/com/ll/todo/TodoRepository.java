@@ -29,7 +29,7 @@ public class TodoRepository {
     }
 
     public  void delete(Todo todo) {
-        String sql = String.format("준비 중", todo.getId() );
+        String sql = String.format("DELETE FROM todo WHERE id = %d", todo.getId() );
         Container.getDBConnection().delete(sql);
     }
 
@@ -43,7 +43,7 @@ public class TodoRepository {
     }
 
     public Todo FindById(int id) {
-        List<Todo> todoList = null;
+        List<Todo> todoList = findAll();
         for (Todo todo : todoList) {
             if (todo.getId() == id) {
                 return todo;

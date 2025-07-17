@@ -8,7 +8,7 @@ public class App {
     TodoController todoController;
 
     App(){
-        DBConnection.DB_NAME = "proj1";
+        DBConnection.DB_NAME = "hj1";
         DBConnection.DB_PORT = 3306;
         DBConnection.DB_USER = "root";
         DBConnection.DB_PASSWORD = "";
